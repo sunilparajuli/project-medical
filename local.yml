@@ -34,6 +34,8 @@ services:
       - emr_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
+    ports:
+    - '2345:5432'
 
   docs:
     image: emr_local_docs
