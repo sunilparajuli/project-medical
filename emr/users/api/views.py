@@ -1,12 +1,11 @@
-from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
+from rest_framework.generics import ListAPIView
 from .serializers import UserSerializer
-
+from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
@@ -28,12 +27,11 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
 # views.py
 
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 # from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+
 
  
 
@@ -52,3 +50,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 'username': username,
             }, status=status.HTTP_200_OK)
         return response
+
+
+class UserListView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    paginate_by = 10  # Set the number of items per page
+    paginate_by_param = 'page_size'  # Customize the query parameter for page size
+    max_paginate_by = 100  # Limit the maximum page size

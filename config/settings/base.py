@@ -87,6 +87,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "emr.users",
+    "emr.patients",
+    "emr.locations",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -360,7 +362,9 @@ SIMPLE_JWT = {
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
-
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
