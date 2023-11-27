@@ -15,7 +15,8 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("api/users/", include("emr.users.urls", namespace="users")),
-    path("api/patients/", include("emr.patients.urls", namespace="emr.patients")),
+    path("api/patients/", include("emr.patients.urls", namespace="patients"), ),
+    path("api/locations/", include("emr.locations.urls", namespace="locations"), ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
