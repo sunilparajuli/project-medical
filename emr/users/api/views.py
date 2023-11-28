@@ -32,9 +32,6 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 # from django.contrib.auth.models import User
 
-
- 
-
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -58,3 +55,15 @@ class UserListView(ListAPIView):
     paginate_by = 10  # Set the number of items per page
     paginate_by_param = 'page_size'  # Customize the query parameter for page size
     max_paginate_by = 100  # Limit the maximum page size
+
+
+from rest_framework import views
+class LogoutView(views.APIView):
+
+    def post(self, request):
+        try:
+            token = RefreshToken(request.data.get('refresh_token'))
+            token.blacklist()
+            return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
