@@ -14,7 +14,6 @@ class PatientView(APIView, PageNumberPagination):
     serializer_class = PatientSerializer
     
     def post(self, request):
-        print(request.data)
         req_data = request.data.copy()
         now = datetime.datetime.now()
         formatted_datetime = now.strftime('%Y%m%d%H%M') + str(now.second * 1000)

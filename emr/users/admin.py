@@ -13,7 +13,7 @@ if settings.DJANGO_ADMIN_FORCE_ALLAUTH:
     # https://django-allauth.readthedocs.io/en/stable/advanced.html#admin
     admin.site.login = decorators.login_required(admin.site.login)  # type: ignore[method-assign]
 
-
+from .models import Profile
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
     form = UserAdminChangeForm
@@ -37,3 +37,5 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     list_display = ["username", "name", "is_superuser"]
     search_fields = ["name"]
+
+admin.site.register(Profile)

@@ -55,3 +55,40 @@ class ProductVariation(models.Model):
 
     class Meta:
         unique_together = ['product', 'attribute_name', 'attribute_value']
+
+
+""" ## todo => product has variation, variation has batches, each batches might have different prices
+class VariationBatch(models.Model):
+	fk_variation = models.ForeignKey(ProductVariation, on_delete=models.CASCADE,)
+	# fk_purchaseitem = models.ForeignKey("orders.PurchaseItem", on_delete=models.CASCADE, null=True)
+	quantity = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
+	batchno = models.CharField(max_length=100, null=True, blank=True)
+	price = models.DecimalField(decimal_places=2, max_digits=20)
+	sale_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
+	created_at = models.DateField(default=date.today)
+	expiry_date = models.DateField(null=True, blank=True)
+	purchase_date = models.DateField(null=True, blank=True)
+	use_batch = models.BooleanField(default=True)
+	is_initial = models.BooleanField(default=False, blank=True)
+
+	def __str__(self):
+		return '%s-%s' %(self.fk_variation.title, self.batchno)
+
+
+
+
+class VariationPrice(models.Model):
+	user_type = models.ForeignKey(User, on_delete=models.CASCADE, null=True) #for patient type drug filter
+	fk_variation = models.ForeignKey(Variation, on_delete=models.CASCADE, null=True)
+	price = models.DecimalField(decimal_places=2, max_digits=20, null=True)
+	sale_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
+
+class VariationBatchPrice(models.Model):
+	fk_user_type = models.ForeignKey(UserTypes, on_delete=models.CASCADE, null=True) #for patient type drug filter
+	fk_variation_batch = models.ForeignKey(VariationBatch, on_delete=models.CASCADE, null=True) #for patient type drug filter
+	price = models.DecimalField(decimal_places=2, max_digits=20, null=True)
+	sale_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
+
+	def __str__(self):
+		return 'batch number :%s for Patient-type-[%s]-price-%s' %(self.fk_variation_batch.batchno, self.fk_user_type.title, self.price)
+"""
